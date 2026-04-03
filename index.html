@@ -7,723 +7,141 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
-
-  <style>
-    /* ── Reset & Base ─────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --red-900: #1a0303;
-      --red-800: #2e0606;
-      --red-700: #4a0909;
-      --red-600: #6b0d0d;
-      --red-500: #8c1515;
-      --red-400: #b01e1e;
-      --red-300: #d43030;
-      --red-200: #e87070;
-      --red-100: #f5b0b0;
-      --gold:    #c8a96e;
-      --gold-dim:#7a6235;
-      --text:    #e8ddd0;
-      --text-dim:#9a8f83;
-      --bg:      #0e0808;
-      --bg2:     #160c0c;
-      --border:  rgba(180,30,30,0.25);
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Crimson Text', Georgia, serif;
-      background: var(--bg);
-      color: var(--text);
-      font-size: 18px;
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-
-    a { color: var(--red-300); text-decoration: none; transition: color .2s; }
-    a:hover { color: var(--red-200); }
-
-    /* ── Scrollbar ───────────────────────────────────────────── */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--red-600); border-radius: 3px; }
-
-    /* ── Noise Overlay ───────────────────────────────────────── */
-    body::before {
-      content: '';
-      position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 0; opacity: .4;
-    }
-
-    /* ── Navbar ──────────────────────────────────────────────── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2rem;
-      height: 60px;
-      background: rgba(14,8,8,.92);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-logo {
-      display: flex; align-items: center; gap: .75rem;
-    }
-    .nav-logo img {
-      height: 32px; filter: brightness(1.1);
-    }
-    .nav-logo span {
-      font-family: 'Cinzel', serif;
-      font-size: .95rem;
-      color: var(--red-200);
-      letter-spacing: .08em;
-    }
-
-    .nav-links {
-      display: flex; gap: 2rem; list-style: none;
-    }
-    .nav-links a {
-      font-family: 'Cinzel', serif;
-      font-size: .72rem;
-      letter-spacing: .12em;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      transition: color .2s;
-    }
-    .nav-links a:hover { color: var(--red-200); }
-
-    .nav-cta {
-      font-family: 'Cinzel', serif;
-      font-size: .72rem;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      padding: .45rem 1.2rem;
-      border: 1px solid var(--red-500);
-      color: var(--red-200) !important;
-      border-radius: 2px;
-      transition: background .2s, color .2s;
-    }
-    .nav-cta:hover { background: var(--red-700); color: var(--text) !important; }
-
-    /* ── Hero ────────────────────────────────────────────────── */
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center;
-      padding: 8rem 2rem 6rem;
-      overflow: hidden;
-    }
-
-    .hero-bg {
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(80,10,10,.55) 0%, transparent 70%),
-        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
-      z-index: -1;
-    }
-
-    /* decorative grid lines */
-    .hero-bg::after {
-      content: '';
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(140,21,21,.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(140,21,21,.08) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
-
-    .hero-badge {
-      display: inline-block;
-      font-family: 'Cinzel', serif;
-      font-size: .7rem;
-      letter-spacing: .25em;
-      text-transform: uppercase;
-      color: var(--red-300);
-      border: 1px solid var(--red-700);
-      padding: .3rem 1rem;
-      border-radius: 2px;
-      margin-bottom: 2rem;
-    }
-
-    .hero-logo {
-      width: min(380px, 80vw);
-      margin-bottom: 2rem;
-      filter: drop-shadow(0 0 40px rgba(180,30,30,.5));
-      animation: logoFloat 6s ease-in-out infinite;
-    }
-
-    @keyframes logoFloat {
-      0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(-8px); }
-    }
-
-    .hero-title {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      font-weight: 400;
-      color: var(--text);
-      line-height: 1.25;
-      margin-bottom: 1.25rem;
-      text-shadow: 0 2px 20px rgba(200,50,50,.3);
-    }
-    .hero-title em {
-      font-style: normal;
-      color: var(--red-300);
-    }
-
-    .hero-sub {
-      max-width: 600px;
-      font-size: 1.15rem;
-      color: var(--text-dim);
-      margin-bottom: 3rem;
-      font-style: italic;
-    }
-
-    .hero-actions {
-      display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;
-    }
-
-    .btn-primary {
-      font-family: 'Cinzel', serif;
-      font-size: .8rem;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      padding: .85rem 2.5rem;
-      background: var(--red-600);
-      color: var(--text);
-      border: 1px solid var(--red-400);
-      border-radius: 2px;
-      cursor: pointer;
-      transition: background .2s, transform .15s, box-shadow .2s;
-      box-shadow: 0 0 20px rgba(180,30,30,.3);
-    }
-    .btn-primary:hover {
-      background: var(--red-500);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 30px rgba(200,40,40,.45);
-    }
-
-    .btn-outline {
-      font-family: 'Cinzel', serif;
-      font-size: .8rem;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      padding: .85rem 2.5rem;
-      background: transparent;
-      color: var(--text-dim);
-      border: 1px solid rgba(150,150,150,.25);
-      border-radius: 2px;
-      cursor: pointer;
-      transition: border-color .2s, color .2s;
-    }
-    .btn-outline:hover { border-color: var(--red-500); color: var(--text); }
-
-    .hero-scroll {
-      position: absolute; bottom: 2rem;
-      font-family: 'Cinzel', serif;
-      font-size: .65rem;
-      letter-spacing: .2em;
-      color: var(--red-700);
-      text-transform: uppercase;
-      animation: pulse 2.5s ease-in-out infinite;
-    }
-    @keyframes pulse { 0%,100%{opacity:.4} 50%{opacity:1} }
-
-    /* ── Section base ─────────────────────────────────────────── */
-    section {
-      position: relative;
-      padding: 6rem 2rem;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-family: 'Cinzel', serif;
-      font-size: .65rem;
-      letter-spacing: .3em;
-      text-transform: uppercase;
-      color: var(--red-400);
-      margin-bottom: .75rem;
-    }
-
-    .section-title {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(1.4rem, 3vw, 2.2rem);
-      font-weight: 400;
-      color: var(--text);
-      margin-bottom: 1.25rem;
-      line-height: 1.2;
-    }
-
-    .section-body {
-      font-size: 1.05rem;
-      color: var(--text-dim);
-      max-width: 680px;
-      line-height: 1.85;
-    }
-
-    hr.divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 0;
-    }
-
-    /* ── About ───────────────────────────────────────────────── */
-    #about {
-      background: var(--bg2);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-    }
-
-    .about-quote {
-      position: relative;
-      padding: 2rem 2rem 2rem 2.5rem;
-      border-left: 3px solid var(--red-600);
-      background: rgba(80,10,10,.15);
-      border-radius: 0 4px 4px 0;
-      margin-top: 2rem;
-    }
-    .about-quote p {
-      font-size: 1rem;
-      color: var(--text-dim);
-      font-style: italic;
-    }
-    .about-quote cite {
-      display: block;
-      margin-top: .75rem;
-      font-size: .85rem;
-      color: var(--gold-dim);
-      font-style: normal;
-      letter-spacing: .05em;
-    }
-
-    .about-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-    }
-
-    .stat-card {
-      background: rgba(80,10,10,.12);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 1.5rem;
-      text-align: center;
-      transition: border-color .2s, background .2s;
-    }
-    .stat-card:hover {
-      border-color: var(--red-500);
-      background: rgba(100,15,15,.22);
-    }
-    .stat-card .num {
-      font-family: 'Cinzel', serif;
-      font-size: 2rem;
-      color: var(--red-300);
-      display: block;
-    }
-    .stat-card .lbl {
-      font-size: .85rem;
-      color: var(--text-dim);
-      margin-top: .25rem;
-    }
-
-    /* ── Features ────────────────────────────────────────────── */
-    #features {
-      background: var(--bg);
-    }
-
-    .features-header {
-      text-align: center;
-      margin-bottom: 4rem;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .feat-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 1.75rem;
-      transition: transform .2s, border-color .2s, box-shadow .2s;
-    }
-    .feat-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--red-500);
-      box-shadow: 0 8px 30px rgba(150,20,20,.2);
-    }
-
-    .feat-icon {
-      font-size: 1.6rem;
-      margin-bottom: 1rem;
-      display: block;
-    }
-
-    .feat-title {
-      font-family: 'Cinzel', serif;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: .5rem;
-    }
-
-    .feat-desc {
-      font-size: .95rem;
-      color: var(--text-dim);
-      line-height: 1.75;
-    }
-
-    /* ── Install ─────────────────────────────────────────────── */
-    #install {
-      background: var(--bg2);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .install-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: start;
-    }
-
-    .platform-tabs {
-      display: flex; gap: .5rem; margin-bottom: 1.5rem; flex-wrap: wrap;
-    }
-
-    .tab-btn {
-      font-family: 'Cinzel', serif;
-      font-size: .7rem;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      padding: .4rem 1rem;
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text-dim);
-      border-radius: 2px;
-      cursor: pointer;
-      transition: all .2s;
-    }
-    .tab-btn.active, .tab-btn:hover {
-      background: var(--red-700);
-      border-color: var(--red-500);
-      color: var(--text);
-    }
-
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-
-    .steps {
-      list-style: none;
-      counter-reset: step-counter;
-    }
-    .steps li {
-      counter-increment: step-counter;
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1.25rem;
-      align-items: flex-start;
-    }
-    .steps li::before {
-      content: counter(step-counter, decimal-leading-zero);
-      font-family: 'Cinzel', serif;
-      font-size: .75rem;
-      color: var(--red-400);
-      background: rgba(80,10,10,.3);
-      border: 1px solid var(--red-700);
-      border-radius: 2px;
-      padding: .2rem .5rem;
-      min-width: 2.4rem;
-      text-align: center;
-      margin-top: .2rem;
-      flex-shrink: 0;
-    }
-    .steps li span {
-      font-size: 1rem;
-      color: var(--text-dim);
-    }
-    .steps li strong { color: var(--text); }
-
-    .code-block {
-      background: #0a0606;
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--red-600);
-      border-radius: 0 4px 4px 0;
-      padding: 1.25rem 1.5rem;
-      font-family: 'Courier New', monospace;
-      font-size: .85rem;
-      color: #ccc;
-      margin-top: 1.25rem;
-      overflow-x: auto;
-      line-height: 1.8;
-    }
-    .code-block .cmd-comment { color: var(--red-700); }
-    .code-block .cmd-main    { color: #e8d5b0; }
-
-    .prereq-list {
-      list-style: none;
-    }
-    .prereq-list li {
-      display: flex; align-items: center; gap: .75rem;
-      padding: .6rem 0;
-      border-bottom: 1px solid rgba(150,30,30,.1);
-      font-size: .95rem;
-      color: var(--text-dim);
-    }
-    .prereq-list li:last-child { border-bottom: none; }
-    .prereq-list li::before {
-      content: '▸';
-      color: var(--red-400);
-      font-size: .8rem;
-      flex-shrink: 0;
-    }
-    .prereq-list a { color: var(--red-300); }
-
-    /* ── Contribute ──────────────────────────────────────────── */
-    #contribute {
-      background: var(--bg);
-    }
-
-    .contribute-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 4rem;
-      align-items: start;
-    }
-
-    .contribute-steps {
-      margin-top: 2rem;
-    }
-
-    .c-step {
-      display: flex; gap: 1.25rem;
-      margin-bottom: 1.75rem;
-    }
-    .c-step-num {
-      font-family: 'Cinzel', serif;
-      font-size: .8rem;
-      color: var(--red-300);
-      background: rgba(80,10,10,.35);
-      border: 1px solid var(--red-700);
-      border-radius: 50%;
-      width: 2.2rem; height: 2.2rem;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      margin-top: .15rem;
-    }
-    .c-step-body strong {
-      font-family: 'Cinzel', serif;
-      font-size: .9rem;
-      color: var(--text);
-      display: block;
-      margin-bottom: .25rem;
-    }
-    .c-step-body p {
-      font-size: .95rem;
-      color: var(--text-dim);
-    }
-
-    .links-panel {
-      background: rgba(80,10,10,.1);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 2rem;
-    }
-    .links-panel h3 {
-      font-family: 'Cinzel', serif;
-      font-size: .9rem;
-      color: var(--text);
-      margin-bottom: 1.25rem;
-      letter-spacing: .08em;
-    }
-    .link-item {
-      display: flex;
-      align-items: center;
-      gap: .75rem;
-      padding: .75rem 0;
-      border-bottom: 1px solid rgba(150,30,30,.1);
-      font-size: .95rem;
-      color: var(--text-dim);
-      transition: color .2s;
-    }
-    .link-item:last-child { border-bottom: none; }
-    .link-item:hover { color: var(--text); }
-    .link-item .li-icon { font-size: 1.1rem; }
-    .link-item a { color: inherit; }
-
-    /* ── Download banner ─────────────────────────────────────── */
-    #download {
-      background: linear-gradient(135deg, var(--red-900) 0%, #1e0808 50%, var(--red-900) 100%);
-      border-top: 1px solid var(--red-700);
-      border-bottom: 1px solid var(--red-700);
-      text-align: center;
-      padding: 5rem 2rem;
-    }
-    #download .section-title { margin-bottom: .5rem; }
-    #download .section-body { margin: 0 auto 2.5rem; text-align: center; }
-
-    .download-grid {
-      display: flex; flex-wrap: wrap; gap: 1.5rem;
-      justify-content: center;
-      margin-top: 2rem;
-    }
-
-    .dl-card {
-      background: rgba(0,0,0,.35);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 1.5rem 2rem;
-      min-width: 180px;
-      text-align: center;
-      transition: border-color .2s, background .2s;
-    }
-    .dl-card:hover { border-color: var(--red-400); background: rgba(80,10,10,.25); }
-    .dl-card .dl-icon { font-size: 2rem; display: block; margin-bottom: .5rem; }
-    .dl-card .dl-name {
-      font-family: 'Cinzel', serif;
-      font-size: .85rem;
-      color: var(--text);
-    }
-    .dl-card .dl-sub {
-      font-size: .8rem;
-      color: var(--text-dim);
-      margin-top: .25rem;
-    }
-
-    /* ── Footer ──────────────────────────────────────────────── */
-    footer {
-      background: #080404;
-      border-top: 1px solid var(--border);
-      padding: 3rem 2rem;
-      text-align: center;
-    }
-    footer img {
-      height: 36px;
-      margin-bottom: 1.25rem;
-      opacity: .7;
-      filter: grayscale(.3);
-    }
-    .footer-links {
-      display: flex; flex-wrap: wrap; gap: 2rem;
-      justify-content: center;
-      margin-bottom: 1.5rem;
-    }
-    .footer-links a {
-      font-family: 'Cinzel', serif;
-      font-size: .65rem;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-    }
-    .footer-links a:hover { color: var(--red-300); }
-
-    .footer-copy {
-      font-size: .85rem;
-      color: var(--red-700);
-    }
-    .footer-credits {
-      margin-top: .5rem;
-      font-size: .82rem;
-      color: rgba(120,80,80,.6);
-    }
-
-    /* ── Misc utilities ──────────────────────────────────────── */
-    .text-accent { color: var(--red-300); }
-    .mt-2 { margin-top: 2rem; }
-
-    /* ── Badge row ───────────────────────────────────────────── */
-    .badge-row {
-      display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.5rem;
-    }
-    .badge {
-      font-family: 'Cinzel', serif;
-      font-size: .62rem;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      padding: .28rem .75rem;
-      border-radius: 2px;
-      background: rgba(80,10,10,.3);
-      border: 1px solid var(--red-700);
-      color: var(--red-200);
-    }
-
-    /* ── Responsive ──────────────────────────────────────────── */
-    @media (max-width: 860px) {
-      .about-grid,
-      .install-grid,
-      .contribute-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .nav-links { display: none; }
-    }
-
-    @media (max-width: 560px) {
-      .about-stats { grid-template-columns: 1fr 1fr; }
-      .features-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+  <link rel="stylesheet" href="css/index.css" />
 </head>
 <body>
 
   <!-- ── NAV ───────────────────────────────────────────────────── -->
   <nav>
-    <a href="https://dust765.github.io/">
-      <div class="nav-logo">
-        <img src="logodust.png" alt="Dust765" />
-        <span>Dust765</span>
+    <div class="nav-cluster">
+      <a href="#home" class="nav-brand-circle nav-brand-bar nav-active" id="nav-home-link" aria-label="Dust765 — Home">
+        <img src="logodust.png" alt="" width="248" height="149" decoding="async" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#screenshots">Screenshots</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#install">Install</a></li>
+        <li><a href="#download-light">Light</a></li>
+        <li><a href="wiki.html">Wiki</a></li>
+      </ul>
+    </div>
+    <div class="nav-right">
+      <div class="nav-social">
+        <a href="https://github.com/dust765/ClassicUO" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        </a>
+        <a href="https://discord.gg/9Vh7aqqX" target="_blank" rel="noopener" aria-label="Discord">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+        </a>
       </div>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#features">Features</a></li>
-      <li><a href="#install">Install</a></li>
-      <li><a href="#contribute">Contribute</a></li>
-      <li><a href="https://github.com/dust765/ClassicUO/wiki" target="_blank" >Wiki</a></li>
-    </ul>
-    <div class="callt-to-action">
-      <a class="nav-cta" href="https://discord.gg/9Vh7aqqX" target="_blank" rel="noopener">Discord</a>
       <a class="nav-cta" href="#download">Download</a>
     </div>
-    
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-hidden="true" />
+    <label for="nav-toggle" class="nav-hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </label>
+    <div class="nav-drawer">
+      <a href="#home" class="nav-brand-circle nav-drawer-brand" aria-label="Dust765 — Home">
+        <img src="logodust.png" alt="" width="248" height="149" decoding="async" />
+      </a>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#screenshots">Screenshots</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#install">Install</a></li>
+        <li>
+          <a href="#download-light" class="nav-drawer-light" aria-label="Dust765 Light — PvP version">
+            <img src="light.png" alt="" class="nav-light-badge" width="80" height="30" decoding="async" />
+            <span>Light · PvP</span>
+          </a>
+        </li>
+        <li><a href="#video">Video</a></li>
+        <li><a href="#download">Download</a></li>
+        <li><a href="wiki.html">Wiki</a></li>
+        <li><a href="https://github.com/dust765/ClassicUO" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://discord.gg/9Vh7aqqX" target="_blank" rel="noopener">Discord</a></li>
+      </ul>
+    </div>
   </nav>
 
   <!-- ── HERO ──────────────────────────────────────────────────── -->
-  <section class="hero" id="home">
+  <section class="hero hero-red" id="home">
+    <canvas id="particles" width="800" height="600" style="position:absolute;inset:0;z-index:-2;width:100%;height:100%"></canvas>
     <div class="hero-bg"></div>
 
-    <div class="hero-badge">Ultima Online Enhanced Client</div>
+    <div class="hero-main">
+      <div class="hero-copy">
+        <div class="hero-badge">Ultima Online Enhanced Client</div>
 
-    <img class="hero-logo" src="logodust.png" alt="Dust765 Logo" />
+        <h1 class="hero-title">
+          <span class="hero-title-kicker">Built for PvP.</span>
+          <span class="hero-lema" aria-label="Fight. Survive. Conquer.">
+            <span class="hero-lema-line"><em>Fight.</em></span>
+            <span class="hero-lema-line"><em>Survive.</em></span>
+            <span class="hero-lema-line"><em>Conquer.</em></span>
+          </span>
+        </h1>
 
-    <h1 class="hero-title">
-      No cliques. No drama. <em>Just UO.</em>
-    </h1>
+        <p class="hero-sub">
+          Dust765 is a ClassicUO fork built for serious Ultima Online players —
+          fast, cross-platform, and packed with combat features. No drama. Just UO.
+        </p>
 
-    <p class="hero-sub">
-      A fork of ClassicUO built for players who are tired of politics and just
-      want a better Ultima Online experience — on every platform.
-    </p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#download">Download Now</a>
+          <a class="btn-outline" href="https://github.com/dust765/ClassicUO" target="_blank" rel="noopener">View on GitHub</a>
+        </div>
 
-    <div class="hero-actions">
-      <a class="btn-primary" href="#download">Download Now</a>
-      <a class="btn-outline" href="https://github.com/dust765/ClassicUO" target="_blank" rel="noopener">View on GitHub</a>
+        <p class="hero-alt-cta"><a href="#download-light">Dust765 Light — PvP-focused build</a></p>
+      </div>
     </div>
+    <div class="hero-discord-banner">
+      <div class="hero-discord-inner">
+        <span class="hero-discord-icon" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+        </span>
+        <div class="hero-discord-text">
+          <strong>Discord</strong>
+          <span>Updates, PvP talk, and help from the community — join the Dust765 server.</span>
+        </div>
+        <a class="btn-discord" href="https://discord.gg/9Vh7aqqX" target="_blank" rel="noopener">Join Discord</a>
+      </div>
+    </div>
+    <div class="hero-showcase">
+      <div class="hero-showcase-inner">
+        <p class="hero-showcase-eyebrow">See the client in-game</p>
+        <div id="screenshots" class="hero-slider-block">
+          <p class="section-label">Visual</p>
+          <h2 class="hero-slider-title">Client Graphics</h2>
+          <div class="slider" id="mainSlider">
+            <div class="slider-track">
+              <div class="slide active">
+                <img src="https://raw.githubusercontent.com/dust765/ClassicUO/developer/docs/login.png" alt="Login Screen" loading="eager" />
+                <div class="slide-caption">Login Screen</div>
+              </div>
+              <div class="slide">
+                <img src="https://raw.githubusercontent.com/dust765/ClassicUO/developer/docs/selectcharacter.png" alt="Character Selection" loading="lazy" />
+                <div class="slide-caption">Character Selection</div>
+              </div>
+              <div class="slide">
+                <img src="https://raw.githubusercontent.com/dust765/ClassicUO/developer/docs/create.png" alt="Character Creation" loading="lazy" />
+                <div class="slide-caption">Character Creation</div>
+              </div>
+              <div class="slide">
+                <img src="https://raw.githubusercontent.com/dust765/ClassicUO/developer/docs/options.png" alt="Options Menu" loading="lazy" />
+                <div class="slide-caption">Options Menu</div>
+              </div>
+            </div>
+            <button type="button" class="slider-btn slider-prev" aria-label="Previous">&#8249;</button>
+            <button type="button" class="slider-btn slider-next" aria-label="Next">&#8250;</button>
+            <div class="slider-dots" id="sliderDots"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
 
     <span class="hero-scroll">↓ Scroll to explore</span>
   </section>
@@ -733,20 +151,20 @@
     <div class="container">
       <div class="about-grid">
         <div>
-          <p class="section-label">The Project</p>
-          <h2 class="section-title">Why Dust765 Exists</h2>
-          <p class="section-body">
+          <p class="section-label reveal">The Project</p>
+          <h2 class="section-title reveal">Why Dust765 Exists</h2>
+          <p class="section-body reveal">
             Dust765 was born from frustration — not with Ultima Online itself,
             but with the drama, gatekeeping, and clique culture that had crept
             into its open-source tooling ecosystem.
           </p>
-          <p class="section-body mt-2">
+          <p class="section-body mt-2 reveal">
             We took ClassicUO, stripped the politics out, and focused on what
             actually matters: a fast, stable, cross-platform client that
             respects every player regardless of what OS they run or who they
             know.
           </p>
-          <div class="about-quote">
+          <div class="about-quote reveal">
             <p>"This project was created to show the community that open source
             isn't meant for cliques and high school drama — it's meant for the
             expansion of something greater: innovation."</p>
@@ -755,19 +173,19 @@
         </div>
 
         <div class="about-stats">
-          <div class="stat-card">
+          <div class="stat-card reveal">
             <span class="num">3</span>
             <span class="lbl">Platforms<br>Windows · Linux · macOS</span>
           </div>
-          <div class="stat-card">
+          <div class="stat-card reveal">
             <span class="num">.NET</span>
             <span class="lbl">Framework 4.8<br>Stable & Proven</span>
           </div>
-          <div class="stat-card">
+          <div class="stat-card reveal">
             <span class="num">FNA</span>
             <span class="lbl">Cross-platform<br>Graphics Engine</span>
           </div>
-          <div class="stat-card">
+          <div class="stat-card reveal">
             <span class="num">v3</span>
             <span class="lbl">Current Release<br>Series</span>
           </div>
@@ -786,7 +204,7 @@
   <!-- ── FEATURES ──────────────────────────────────────────────── -->
   <section id="features">
     <div class="container">
-      <div class="features-header">
+      <div class="features-header reveal">
         <p class="section-label">What We Built</p>
         <h2 class="section-title">Features</h2>
         <p class="section-body" style="margin:0 auto; text-align:center">
@@ -796,50 +214,70 @@
       </div>
 
       <div class="features-grid">
-        <div class="feat-card">
+        <div class="feat-card reveal" style="transition-delay:0s">
           <span class="feat-icon">⚔️</span>
           <div class="feat-title">Combat Enhancements</div>
           <p class="feat-desc">Last target tracking, self-cast support, stun/mortal highlight, swing line indicators for ranged weapons, sync position on attack, and UO Classic Combat integration.</p>
         </div>
-        <div class="feat-card">
+        <div class="feat-card reveal" style="transition-delay:0.08s">
           <span class="feat-icon">🧿</span>
           <div class="feat-title">Visual Helpers</div>
           <p class="feat-desc">Glowing weapons, highlight friends and guild members, gargoyle fly state override, custom gargoyle walk animation while flying, and health indicator overlay.</p>
         </div>
-        <div class="feat-card">
+        <div class="feat-card reveal" style="transition-delay:0.16s">
           <span class="feat-icon">🪄</span>
           <div class="feat-title">Casting & Spells</div>
           <p class="feat-desc">Active spell icon on cursor, OnCasting gump, self-cast last target highlight, and fast rotation support for fluid spellcasting.</p>
         </div>
-        <div class="feat-card">
+        <div class="feat-card reveal" style="transition-delay:0.24s">
           <span class="feat-icon">🖥️</span>
           <div class="feat-title">Modern UI</div>
           <p class="feat-desc">Custom window title bar with HP/Mana/Stamina bars (UOS/Orion-style), borderless window mode with resize edges, and a redesigned login screen.</p>
         </div>
-        <div class="feat-card">
+        <div class="feat-card reveal" style="transition-delay:0.32s">
           <span class="feat-icon">🌍</span>
           <div class="feat-title">Cross-Platform</div>
           <p class="feat-desc">Native builds for Windows x64, Linux x64, and macOS. All platforms are treated equally — first-class support, not an afterthought.</p>
         </div>
-        <div class="feat-card">
+        <div class="feat-card reveal" style="transition-delay:0.40s">
           <span class="feat-icon">🔌</span>
           <div class="feat-title">Plugin Compatibility</div>
           <p class="feat-desc">Razor Enhanced, UOStealth, UOAssist, ClassicAssist, and other popular plugins all work out of the box. No manual patching required.</p>
         </div>
-        <div class="feat-card">
+        <div class="feat-card reveal" style="transition-delay:0.48s">
           <span class="feat-icon">🗒️</span>
           <div class="feat-title">Auto Loot & Macros</div>
           <p class="feat-desc">Built-in auto-loot system, UO Classic Combat macro helpers, action bar, and scriptable macro support for repetitive tasks.</p>
         </div>
-        <div class="feat-card">
+        <div class="feat-card reveal" style="transition-delay:0.56s">
           <span class="feat-icon">📊</span>
           <div class="feat-title">Info & Nameplates</div>
           <p class="feat-desc">Configurable nameplates, health bars, info bars, cooldown bars, counters, and an in-game buff bar — all customizable per profile.</p>
         </div>
-        <div class="feat-card">
+        <div class="feat-card reveal" style="transition-delay:0.64s">
           <span class="feat-icon">🔄</span>
           <div class="feat-title">Auto Updater</div>
           <p class="feat-desc">Integrated update manager checks for new releases and applies them automatically so you never miss a patch or have to hunt down downloads.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── VIDEO ─────────────────────────────────────────────────── -->
+  <section id="video">
+    <div class="container">
+      <div class="video-header reveal">
+        <p class="section-label">Gameplay</p>
+        <h2 class="section-title">See It in Action</h2>
+      </div>
+      <div class="video-wrapper reveal">
+        <div class="video-placeholder" id="videoPlaceholder" onclick="loadVideo()">
+          <div class="video-bg"></div>
+          <button type="button" class="video-play-btn" aria-label="Play video" onclick="event.stopPropagation(); loadVideo();">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <p class="video-label">Watch Gameplay</p>
+          <p class="video-sub">See Dust765 in action — PvP showcase</p>
         </div>
       </div>
     </div>
@@ -850,18 +288,18 @@
     <div class="container">
       <div class="install-grid">
         <div>
-          <p class="section-label">Getting Started</p>
-          <h2 class="section-title">Installation</h2>
-          <p class="section-body">
+          <p class="section-label reveal">Getting Started</p>
+          <h2 class="section-title reveal">Installation</h2>
+          <p class="section-body reveal">
             Dust765 is a standalone client. No source code required — just
             download, extract, and point it at your UO installation.
           </p>
 
           <div class="platform-tabs mt-2">
-            <button class="tab-btn active" onclick="showTab('win')">Windows</button>
-            <button class="tab-btn" onclick="showTab('linux')">Linux</button>
-            <button class="tab-btn" onclick="showTab('mac')">macOS</button>
-            <button class="tab-btn" onclick="showTab('src')">From Source</button>
+            <button type="button" class="tab-btn active" onclick="showTab('win', this)">Windows</button>
+            <button type="button" class="tab-btn" onclick="showTab('linux', this)">Linux</button>
+            <button type="button" class="tab-btn" onclick="showTab('mac', this)">macOS</button>
+            <button type="button" class="tab-btn" onclick="showTab('src', this)">From Source</button>
           </div>
 
           <div id="tab-win" class="tab-content active">
@@ -928,33 +366,144 @@ dotnet build src/ClassicUO.Client/ClassicUO.Client.csproj -c Release</span>
     </div>
   </section>
 
+  <!-- ── DOWNLOAD LIGHT (PvP) ─────────────────────────────────── -->
+  <section id="download-light">
+    <div class="container">
+      <p class="section-label reveal">PvP edition</p>
+      <h2 class="section-title reveal">Dust765 Light</h2>
+      <p class="section-body reveal">
+        Dust765 Light includes <strong>only</strong> the features listed below. All options are available under <strong>Options → Dust765</strong> in-game.
+      </p>
+
+      <div class="light-intro-banner reveal">
+        <img src="light.png" alt="Dust765 Light" class="light-intro-full" width="800" height="200" decoding="async" />
+      </div>
+
+      <div class="light-features reveal">
+        <div class="light-feature-block">
+          <h3>Movement</h3>
+          <ul>
+            <li>Avoid obstacles automatically while walking</li>
+          </ul>
+        </div>
+
+        <div class="light-feature-block">
+          <h3>UO Classic Combat — Swing Timer</h3>
+          <ul>
+            <li>Visual swing timer bar showing weapon cooldown progress</li>
+            <li>Toggle the bar on/off and lock its position on screen</li>
+          </ul>
+        </div>
+
+        <div class="light-feature-block">
+          <h3>HP / Mana / Stamina Bars</h3>
+          <ul>
+            <li>HP/Mana/Stamina bars displayed below your own character nameplate (no Ctrl+Shift needed)</li>
+            <li>Adjustable nameplate bar opacity</li>
+            <li>Old-style underfoot HP lines for all mobiles</li>
+            <li>HP / Mana / Stamina underlines for self and party members</li>
+            <li>Option for larger underlines</li>
+            <li>Adjustable underline transparency (1–10 scale)</li>
+          </ul>
+        </div>
+
+        <div class="light-feature-block">
+          <h3>Bandage Timer</h3>
+          <ul>
+            <li>On-screen bandage timer gump</li>
+            <li>Option to count up instead of down</li>
+          </ul>
+        </div>
+
+        <div class="light-feature-block">
+          <h3>Casting Timer (OnCasting)</h3>
+          <ul>
+            <li>On-screen casting timer gump</li>
+            <li>Option to hide the gump (internal tracking only)</li>
+            <li>Position the timer below the player status bar</li>
+          </ul>
+        </div>
+
+        <div class="light-feature-block">
+          <h3>Houses &amp; World Map</h3>
+          <ul>
+            <li>Transparent houses — walls above a configurable Z level fade out (transparency 1–9)</li>
+            <li>Invisible houses — walls above a configurable Z level disappear entirely; mobiles and players inside remain visible</li>
+            <li>Configurable ground clearance to prevent floors from being affected</li>
+            <li>Show death location on the world map for 5 minutes after dying</li>
+          </ul>
+        </div>
+
+        <div class="light-feature-block">
+          <h3>Grid Container</h3>
+          <ul>
+            <li>Replace the standard container gump with a resizable item grid</li>
+            <li>Drag the corner to resize; border and resize handle always visible</li>
+          </ul>
+        </div>
+
+        <div class="light-feature-block">
+          <h3>Combat &amp; targeting</h3>
+          <ul>
+            <li>Block Wall of Stone</li>
+            <li>Block Energy Field</li>
+            <li>Highlight target range tile</li>
+            <li>Highlight stealth</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="download-grid">
+        <a class="dl-card dl-card--light reveal" href="https://github.com/dust765/Dust765-Light/releases/latest" target="_blank" rel="noopener">
+          <span class="dl-icon">🪟</span>
+          <div class="dl-name">Windows</div>
+          <div class="dl-sub">Light · x64</div>
+        </a>
+        <a class="dl-card dl-card--light reveal" href="https://github.com/dust765/Dust765-Light/releases/latest" target="_blank" rel="noopener">
+          <span class="dl-icon">🐧</span>
+          <div class="dl-name">Linux</div>
+          <div class="dl-sub">Light · x64</div>
+        </a>
+        <a class="dl-card dl-card--light reveal" href="https://github.com/dust765/Dust765-Light/releases/latest" target="_blank" rel="noopener">
+          <span class="dl-icon">🍎</span>
+          <div class="dl-name">macOS</div>
+          <div class="dl-sub">Light · x64</div>
+        </a>
+      </div>
+
+      <p class="light-footnote reveal">
+        Downloads: <a href="https://github.com/dust765/Dust765-Light/releases/latest" target="_blank" rel="noopener">github.com/dust765/Dust765-Light/releases/latest</a> — pick the asset for your platform on the latest release.
+      </p>
+    </div>
+  </section>
+
   <!-- ── DOWNLOAD ───────────────────────────────────────────────── -->
   <section id="download">
     <div class="container">
-      <p class="section-label">Latest Release</p>
-      <h2 class="section-title">Download Dust765</h2>
-      <p class="section-body">
-        Builds are produced automatically from every commit. Grab the
-        version for your platform — no account needed, no strings attached.
+      <p class="section-label reveal">Latest Release</p>
+      <h2 class="section-title reveal">Download Dust765</h2>
+      <p class="section-body reveal">
+        Full client builds for every platform — same pipeline as Light. Grab the
+        version you need — no account, no strings. Looking for the lean PvP build? See <a href="#download-light">Dust765 Light</a> above.
       </p>
 
       <div class="download-grid">
-        <a class="dl-card" href="https://github.com/dust765/ClassicUO/releases" target="_blank" rel="noopener">
+        <a class="dl-card reveal" href="https://github.com/dust765/ClassicUO/releases" target="_blank" rel="noopener">
           <span class="dl-icon">🪟</span>
           <div class="dl-name">Windows</div>
           <div class="dl-sub">x64 · .exe</div>
         </a>
-        <a class="dl-card" href="https://github.com/dust765/ClassicUO/releases" target="_blank" rel="noopener">
+        <a class="dl-card reveal" href="https://github.com/dust765/ClassicUO/releases" target="_blank" rel="noopener">
           <span class="dl-icon">🐧</span>
           <div class="dl-name">Linux</div>
           <div class="dl-sub">x64 · Mono</div>
         </a>
-        <a class="dl-card" href="https://github.com/dust765/ClassicUO/releases" target="_blank" rel="noopener">
+        <a class="dl-card reveal" href="https://github.com/dust765/ClassicUO/releases" target="_blank" rel="noopener">
           <span class="dl-icon">🍎</span>
           <div class="dl-name">macOS</div>
           <div class="dl-sub">x64 · Mono</div>
         </a>
-        <a class="dl-card" href="https://github.com/dust765/ClassicUO" target="_blank" rel="noopener">
+        <a class="dl-card reveal" href="https://github.com/dust765/ClassicUO" target="_blank" rel="noopener">
           <span class="dl-icon">📦</span>
           <div class="dl-name">Source</div>
           <div class="dl-sub">GitHub · MIT</div>
@@ -968,44 +517,44 @@ dotnet build src/ClassicUO.Client/ClassicUO.Client.csproj -c Release</span>
     <div class="container">
       <div class="contribute-grid">
         <div>
-          <p class="section-label">Open Source</p>
-          <h2 class="section-title">Contribute</h2>
-          <p class="section-body">
+          <p class="section-label reveal">Open Source</p>
+          <h2 class="section-title reveal">Contribute</h2>
+          <p class="section-body reveal">
             Dust765 is open to everyone. If you play UO and you have an idea
             that makes the game better — you're already qualified to
             contribute. No inner circle, no approval committee.
           </p>
 
           <div class="contribute-steps">
-            <div class="c-step">
+            <div class="c-step reveal">
               <div class="c-step-num">1</div>
               <div class="c-step-body">
                 <strong>Fork the Repository</strong>
                 <p>Click Fork on GitHub to create your own copy of the codebase.</p>
               </div>
             </div>
-            <div class="c-step">
+            <div class="c-step reveal">
               <div class="c-step-num">2</div>
               <div class="c-step-body">
                 <strong>Create a Feature Branch</strong>
                 <p><code>git checkout -b feature/YourIdea</code> — keep it focused.</p>
               </div>
             </div>
-            <div class="c-step">
+            <div class="c-step reveal">
               <div class="c-step-num">3</div>
               <div class="c-step-body">
                 <strong>Build &amp; Test Locally</strong>
                 <p>Run <code>dotnet build</code> and make sure nothing is broken before pushing.</p>
               </div>
             </div>
-            <div class="c-step">
+            <div class="c-step reveal">
               <div class="c-step-num">4</div>
               <div class="c-step-body">
                 <strong>Open a Pull Request</strong>
                 <p>Target the <code>developer</code> branch. Describe what you changed and why.</p>
               </div>
             </div>
-            <div class="c-step">
+            <div class="c-step reveal">
               <div class="c-step-num">5</div>
               <div class="c-step-body">
                 <strong>Get Honest Feedback</strong>
@@ -1034,9 +583,13 @@ dotnet build src/ClassicUO.Client/ClassicUO.Client.csproj -c Release</span>
             <span class="li-icon">🎮</span>
             <span>Discord Server</span>
           </a>
-          <a class="link-item" href="https://github.com/dust765/ClassicUO/wiki" target="_blank" rel="noopener">
+          <a class="link-item" href="wiki.html">
             <span class="li-icon">📖</span>
             <span>Dust765 Wiki</span>
+          </a>
+          <a class="link-item" href="https://github.com/dust765/ClassicUO/wiki" target="_blank" rel="noopener">
+            <span class="li-icon">🔗</span>
+            <span>Wiki on GitHub</span>
           </a>
           <a class="link-item" href="https://github.com/dust765/ClassicUO/releases" target="_blank" rel="noopener">
             <span class="li-icon">📦</span>
@@ -1053,19 +606,37 @@ dotnet build src/ClassicUO.Client/ClassicUO.Client.csproj -c Release</span>
     </div>
   </section>
 
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
+    <div class="lightbox-backdrop"></div>
+    <button type="button" class="lightbox-close" aria-label="Close">✕</button>
+    <button type="button" class="lightbox-prev" aria-label="Previous">&#8249;</button>
+    <img class="lightbox-img" src="" alt="" />
+    <button type="button" class="lightbox-next" aria-label="Next">&#8250;</button>
+  </div>
+
   <!-- ── FOOTER ────────────────────────────────────────────────── -->
   <footer>
-    <img src="logodust.png" alt="Dust765" />
+    <p class="footer-wordmark">Dust765</p>
+    <div class="footer-social">
+      <a href="https://github.com/dust765/ClassicUO" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg width="24" height="24" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+      </a>
+      <a href="https://discord.gg/9Vh7aqqX" target="_blank" rel="noopener" aria-label="Discord">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+      </a>
+    </div>
     <div class="footer-links">
       <a href="#about">About</a>
       <a href="#features">Features</a>
       <a href="#install">Install</a>
+      <a href="#download-light">Light · PvP</a>
       <a href="#contribute">Contribute</a>
       <a href="https://github.com/dust765/ClassicUO" target="_blank" rel="noopener">GitHub</a>
       <a href="https://discord.gg/9Vh7aqqX" target="_blank" rel="noopener">Discord</a>
-      <a href="https://github.com/dust765/ClassicUO/wiki" target="_blank" rel="noopener">Wiki</a>
+      <a href="wiki.html">Wiki</a>
+      <a href="https://github.com/dust765/ClassicUO/wiki" target="_blank" rel="noopener">Wiki (GitHub)</a>
     </div>
-    <p class="footer-copy">© Dust765 Project — MIT License</p>
+    <p class="footer-copy">© Dust765 — MIT License</p>
     <p class="footer-credits">
       Built on <a href="https://github.com/andreakarasho/ClassicUO" target="_blank" rel="noopener" style="color:inherit">ClassicUO</a> by andreakarasho ·
       Powered by <a href="https://github.com/FNA-XNA/FNA" target="_blank" rel="noopener" style="color:inherit">FNA</a> ·
@@ -1075,20 +646,236 @@ dotnet build src/ClassicUO.Client/ClassicUO.Client.csproj -c Release</span>
 
   <!-- ── JS ────────────────────────────────────────────────────── -->
   <script>
-    function showTab(id) {
+    function showTab(id, btn) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
       document.getElementById('tab-' + id).classList.add('active');
-      event.currentTarget.classList.add('active');
+      if (btn) btn.classList.add('active');
     }
 
-    // Subtle nav highlight on scroll
-    const nav = document.querySelector('nav');
+    function loadVideo() {
+      const placeholder = document.getElementById('videoPlaceholder');
+      if (!placeholder) return;
+      const wrapper = placeholder.parentElement;
+      if (wrapper.querySelector('iframe')) return;
+      wrapper.innerHTML = '<iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1&rel=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;aspect-ratio:16/9;border:1px solid var(--border);border-radius:4px;"></iframe>';
+    }
+
+    function setNavActive(id) {
+      document.querySelectorAll('nav a.nav-active').forEach(a => a.classList.remove('nav-active'));
+      document.querySelectorAll('nav a[href="#' + id + '"]').forEach(a => a.classList.add('nav-active'));
+    }
+
+    (function particlesInit() {
+      const hero = document.getElementById('home');
+      const canvas = document.getElementById('particles');
+      if (!hero || !canvas) return;
+      const ctx = canvas.getContext('2d');
+      let raf = 0;
+      let particles = [];
+      let running = false;
+      const N = 80;
+      function resize() {
+        const w = hero.offsetWidth;
+        const h = hero.offsetHeight;
+        if (w < 1 || h < 1) return;
+        canvas.width = w;
+        canvas.height = h;
+      }
+      function initParticles() {
+        particles = [];
+        for (let i = 0; i < N; i++) {
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.6,
+            vy: -0.1 - Math.random() * 0.3,
+            r: 1 + Math.random() * 2,
+            alpha: 0.15 + Math.random() * 0.25
+          });
+        }
+      }
+      function tick() {
+        if (!running) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (const p of particles) {
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0) p.x = canvas.width;
+          if (p.x > canvas.width) p.x = 0;
+          if (p.y < 0) p.y = canvas.height;
+          if (p.y > canvas.height) p.y = 0;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(200,50,50,' + (p.alpha * 0.45) + ')';
+          ctx.fill();
+        }
+        raf = requestAnimationFrame(tick);
+      }
+      function start() {
+        if (running) return;
+        running = true;
+        resize();
+        if (canvas.width > 0) initParticles();
+        tick();
+      }
+      function stop() {
+        running = false;
+        cancelAnimationFrame(raf);
+      }
+      new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            resize();
+            if (canvas.width > 0 && particles.length === 0) initParticles();
+            start();
+          } else stop();
+        });
+      }, { threshold: 0 }).observe(hero);
+      window.addEventListener('resize', () => {
+        resize();
+        initParticles();
+      });
+    })();
+
+    window.openLightbox = function(index) {
+      const lb = document.getElementById('lightbox');
+      const list = document.querySelectorAll('#mainSlider .slide img');
+      if (!list.length || !lb) return;
+      let lbIndex = index;
+      const img = lb.querySelector('.lightbox-img');
+      function apply() {
+        img.src = list[lbIndex].src;
+        img.alt = list[lbIndex].alt;
+        if (window.__dustSliderGoTo) window.__dustSliderGoTo(lbIndex);
+      }
+      function updateLb(delta) {
+        lbIndex = (lbIndex + delta + list.length) % list.length;
+        apply();
+      }
+      apply();
+      lb._dustUpdate = updateLb;
+      lb.classList.add('open');
+    };
+
+    function sliderInit() {
+      const slider = document.getElementById('mainSlider');
+      if (!slider) return;
+      const slides = slider.querySelectorAll('.slide');
+      const dotsWrap = document.getElementById('sliderDots');
+      let currentIndex = 0;
+      let autoplay = null;
+      const dots = [];
+      slides.forEach((_, i) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'dot' + (i === 0 ? ' active' : '');
+        b.setAttribute('aria-label', 'Slide ' + (i + 1));
+        b.addEventListener('click', () => goTo(i));
+        dotsWrap.appendChild(b);
+        dots.push(b);
+      });
+      function resetAutoplay() {
+        if (autoplay) clearInterval(autoplay);
+        autoplay = setInterval(function() { goTo(currentIndex + 1); }, 4000);
+      }
+      function goTo(n) {
+        slides[currentIndex].classList.remove('active');
+        dots[currentIndex].classList.remove('active');
+        dots[currentIndex].offsetWidth;
+        currentIndex = (n + slides.length) % slides.length;
+        slides[currentIndex].classList.add('active');
+        dots[currentIndex].classList.add('active');
+        resetAutoplay();
+      }
+      window.__dustSliderGoTo = goTo;
+      slider.querySelector('.slider-prev').addEventListener('click', () => goTo(currentIndex - 1));
+      slider.querySelector('.slider-next').addEventListener('click', () => goTo(currentIndex + 1));
+      slider.addEventListener('mouseenter', () => { if (autoplay) clearInterval(autoplay); autoplay = null; });
+      slider.addEventListener('mouseleave', () => resetAutoplay());
+      slides.forEach((slide, i) => {
+        slide.querySelector('img').addEventListener('click', () => openLightbox(i));
+      });
+      resetAutoplay();
+    }
+
+    function lightboxInit() {
+      const lb = document.getElementById('lightbox');
+      if (!lb) return;
+      lb.querySelector('.lightbox-close').addEventListener('click', () => lb.classList.remove('open'));
+      lb.querySelector('.lightbox-backdrop').addEventListener('click', () => lb.classList.remove('open'));
+      lb.querySelector('.lightbox-prev').addEventListener('click', e => {
+        e.stopPropagation();
+        if (lb._dustUpdate) lb._dustUpdate(-1);
+      });
+      lb.querySelector('.lightbox-next').addEventListener('click', e => {
+        e.stopPropagation();
+        if (lb._dustUpdate) lb._dustUpdate(1);
+      });
+      document.addEventListener('keydown', e => {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') lb.classList.remove('open');
+        if (e.key === 'ArrowLeft' && lb._dustUpdate) lb._dustUpdate(-1);
+        if (e.key === 'ArrowRight' && lb._dustUpdate) lb._dustUpdate(1);
+      });
+    }
+
+    const navEl = document.querySelector('nav');
     window.addEventListener('scroll', () => {
-      nav.style.borderBottomColor = scrollY > 40
-        ? 'rgba(180,30,30,.45)'
-        : 'rgba(180,30,30,.25)';
+      navEl.style.background = scrollY > 40 ? 'rgba(255,252,252,.98)' : 'rgba(255,252,252,.92)';
+      navEl.style.borderBottomColor = scrollY > 40 ? 'rgba(180,40,40,.35)' : 'rgba(180,40,40,.2)';
     });
+
+    const navSectionIds = ['home', 'about', 'features', 'install', 'download-light', 'download'];
+    const navSections = navSectionIds.map(id => document.getElementById(id)).filter(Boolean);
+    const navObserver = new IntersectionObserver(entries => {
+      const visible = entries.filter(e => e.isIntersecting && e.intersectionRatio >= 0.4);
+      if (!visible.length) return;
+      visible.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+      setNavActive(visible[0].target.id);
+    }, { threshold: [0, 0.25, 0.4, 0.5, 0.75, 1] });
+    navSections.forEach(sec => navObserver.observe(sec));
+
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    function syncRevealToScroll() {
+      const vh = window.innerHeight;
+      document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.bottom > 0 && rect.top < vh) {
+          el.classList.add('visible');
+          revealObserver.unobserve(el);
+        }
+      });
+    }
+
+    function applyHashLanding() {
+      const id = location.hash ? location.hash.slice(1) : '';
+      if (id && navSectionIds.includes(id)) setNavActive(id);
+      syncRevealToScroll();
+    }
+
+    applyHashLanding();
+    requestAnimationFrame(() => requestAnimationFrame(applyHashLanding));
+    window.addEventListener('load', applyHashLanding);
+
+    document.querySelectorAll('.nav-drawer a').forEach(a => {
+      a.addEventListener('click', () => {
+        const t = document.getElementById('nav-toggle');
+        if (t) t.checked = false;
+      });
+    });
+
+    sliderInit();
+    lightboxInit();
   </script>
 </body>
 </html>

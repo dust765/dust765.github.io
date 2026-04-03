@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Animações — Dust765</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#111;color:#ccc;font-family:sans-serif;padding:24px}
+  h2{color:#fff;font-size:1.3rem;margin-bottom:6px}
+  .subtitle{color:#888;font-size:.9rem;margin-bottom:24px}
+
+  .options{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:600px){.options{grid-template-columns:1fr}}
+
+  .option{
+    border:2px solid #222;border-radius:10px;padding:0;
+    cursor:pointer;overflow:hidden;transition:border-color .2s;
+    background:#0a0a0a;
+  }
+  .option:hover{border-color:#444}
+  .option.selected{border-color:#8c1515;box-shadow:0 0 20px rgba(140,21,21,0.4)}
+  .option .letter{
+    background:#1a0303;color:#8c1515;font-weight:700;
+    padding:6px 14px;font-size:.8rem;letter-spacing:2px;
+    border-bottom:1px solid #1a0303
+  }
+  .option.selected .letter{background:#8c1515;color:#fff}
+  .demo{height:160px;position:relative;overflow:hidden;background:#000}
+  .option .content{padding:12px 14px}
+  .option .content h3{color:#fff;font-size:.95rem;margin-bottom:4px}
+  .option .content p{color:#888;font-size:.8rem;line-height:1.5}
+
+  /* ── DEMO A: Particles + Glow pulse ── */
+  #demoA canvas{position:absolute;inset:0;width:100%;height:100%}
+  #demoA .glow-text{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    font-size:2rem;font-weight:900;font-family:serif;color:#fff;
+    text-shadow:0 0 20px rgba(220,40,40,0.9);
+    animation:pulse 2s ease-in-out infinite
+  }
+  @keyframes pulse{0%,100%{text-shadow:0 0 10px rgba(220,40,40,0.5)}50%{text-shadow:0 0 40px rgba(220,40,40,1),0 0 80px rgba(220,40,40,0.5)}}
+
+  /* ── DEMO B: Scanlines + Glitch ── */
+  #demoB{background:#000;display:flex;align-items:center;justify-content:center}
+  #demoB::before{
+    content:'';position:absolute;inset:0;
+    background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);
+    pointer-events:none;z-index:2
+  }
+  .glitch-text{
+    font-size:2rem;font-weight:900;font-family:serif;color:#fff;
+    position:relative;animation:glitch 3s infinite
+  }
+  .glitch-text::before,.glitch-text::after{
+    content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%
+  }
+  .glitch-text::before{color:#dc2828;animation:glitch-r 3s infinite;clip-path:polygon(0 20%,100% 20%,100% 40%,0 40%)}
+  .glitch-text::after{color:#2828dc;animation:glitch-b 3s infinite;clip-path:polygon(0 60%,100% 60%,100% 80%,0 80%)}
+  @keyframes glitch{0%,90%,100%{transform:none}91%{transform:skewX(-2deg)}93%{transform:skewX(2deg)}}
+  @keyframes glitch-r{0%,90%,100%{transform:none;opacity:0}91%{transform:translate(-2px,0);opacity:.8}93%{transform:translate(2px,0);opacity:.8}}
+  @keyframes glitch-b{0%,90%,100%{transform:none;opacity:0}92%{transform:translate(2px,1px);opacity:.8}94%{transform:translate(-2px,-1px);opacity:.8}}
+
+  /* ── DEMO C: Ember particles rising ── */
+  #demoC{background:linear-gradient(to top,#1a0500,#000);display:flex;align-items:flex-end;justify-content:center;padding-bottom:16px}
+  .ember{
+    position:absolute;bottom:0;width:3px;border-radius:50%;
+    background:radial-gradient(circle,#ffa040,#dc4010);
+    animation:rise linear infinite;opacity:0
+  }
+  @keyframes rise{
+    0%{transform:translateY(0) translateX(0) scale(1);opacity:.9}
+    50%{opacity:.6;transform:translateY(-60px) translateX(var(--dx)) scale(.7)}
+    100%{transform:translateY(-130px) translateX(calc(var(--dx)*2)) scale(.2);opacity:0}
+  }
+  #demoC .forge-text{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    font-size:2rem;font-weight:900;font-family:serif;
+    color:#f0a060;text-shadow:0 0 30px rgba(200,80,0,1)
+  }
+
+  /* ── DEMO D: Scroll Reveal only ── */
+  #demoD{display:flex;flex-direction:column;gap:8px;padding:16px;justify-content:center}
+  .reveal-row{
+    height:22px;background:#111;border-left:2px solid #8c1515;
+    border-radius:2px;animation:revealIn 1s ease forwards;opacity:0
+  }
+  .reveal-row:nth-child(1){animation-delay:.1s;width:70%}
+  .reveal-row:nth-child(2){animation-delay:.3s;width:90%}
+  .reveal-row:nth-child(3){animation-delay:.5s;width:55%}
+  .reveal-row:nth-child(4){animation-delay:.7s;width:80%}
+  @keyframes revealIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:none}}
+
+  /* selection indicator */
+  #indicator{
+    position:fixed;bottom:16px;left:50%;transform:translateX(-50%);
+    background:#8c1515;color:#fff;padding:8px 20px;border-radius:20px;
+    font-size:.85rem;display:none;z-index:999
+  }
+  #indicator.visible{display:block}
+</style>
+</head>
+<body>
+<h2>Qual estilo de animação você quer?</h2>
+<p class="subtitle">Todas as opções ficam no tema Abyss/OLED Black — escolha a intensidade e o efeito principal</p>
+
+<div class="options" id="optContainer">
+
+  <div class="option" data-choice="particles" onclick="pick(this)">
+    <div class="letter">A — PARTÍCULAS + GLOW PULSE</div>
+    <div class="demo" id="demoA">
+      <canvas id="cvs"></canvas>
+      <div class="glow-text">DUST765</div>
+    </div>
+    <div class="content">
+      <h3>Partículas flutuantes + pulso de glow</h3>
+      <p>Canvas com pontos vermelhos flutuando no hero. Título pulsa com glow. Sections fazem fade-in ao scroll. Hover nos cards acende borda.</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="glitch" onclick="pick(this)">
+    <div class="letter">B — GLITCH + SCANLINES</div>
+    <div class="demo" id="demoB">
+      <div class="glitch-text" data-text="DUST765">DUST765</div>
+    </div>
+    <div class="content">
+      <h3>Efeito glitch + linhas de scan</h3>
+      <p>Título faz glitch periódico com offset RGB. Scanlines sutis no fundo. Animações de entrada tipo "typewriter" nas seções.</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="ember" onclick="pick(this)">
+    <div class="letter">C — EMBER / CHAMAS SUBINDO</div>
+    <div class="demo" id="demoC">
+      <div class="forge-text">DUST765</div>
+    </div>
+    <div class="content">
+      <h3>Partículas de brasa + chama</h3>
+      <p>Ember particles sobem a partir da base do hero. Borda dos cards "arde". Combina com tema dark mas adiciona calor ao visual.</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="smooth" onclick="pick(this)">
+    <div class="letter">D — SMOOTH REVEAL (SUTIL)</div>
+    <div class="demo" id="demoD">
+      <div class="reveal-row"></div>
+      <div class="reveal-row"></div>
+      <div class="reveal-row"></div>
+      <div class="reveal-row"></div>
+    </div>
+    <div class="content">
+      <h3>Entradas suaves ao scroll</h3>
+      <p>Seções deslizam e aparecem ao rolar. Hover nos cards tem transição elegante. Sem distrações — foco no conteúdo com refinamento.</p>
+    </div>
+  </div>
+
+</div>
+
+<div id="indicator">Selecionado — responda no terminal</div>
+
+<script>
+function pick(el){
+  document.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'))
+  el.classList.add('selected')
+  document.getElementById('indicator').classList.add('visible')
+  // write to events
+  try{
+    const ev={type:'click',choice:el.dataset.choice,text:el.querySelector('h3').textContent,timestamp:Date.now()}
+    fetch('/__events',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(ev)}).catch(()=>{})
+  }catch(e){}
+}
+
+// Particle canvas for demo A
+const cvs=document.getElementById('cvs')
+const ctx=cvs.getContext('2d')
+let pts=[]
+function resize(){cvs.width=cvs.offsetWidth;cvs.height=cvs.offsetHeight}
+resize()
+for(let i=0;i<40;i++)pts.push({x:Math.random()*cvs.width,y:Math.random()*cvs.height,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:Math.random()*1.5+.5})
+function frame(){
+  ctx.clearRect(0,0,cvs.width,cvs.height)
+  pts.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy
+    if(p.x<0)p.x=cvs.width;if(p.x>cvs.width)p.x=0
+    if(p.y<0)p.y=cvs.height;if(p.y>cvs.height)p.y=0
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
+    ctx.fillStyle='rgba(180,20,20,.7)';ctx.fill()
+  })
+  requestAnimationFrame(frame)
+}
+frame()
+
+// Ember particles for demo C
+const dC=document.getElementById('demoC')
+function spawnEmber(){
+  const e=document.createElement('div')
+  e.className='ember'
+  const dx=(Math.random()-.5)*40
+  e.style.setProperty('--dx',dx+'px')
+  e.style.left=(20+Math.random()*60)+'%'
+  e.style.width=(Math.random()*3+1)+'px'
+  e.style.height=e.style.width
+  const dur=1.5+Math.random()*1.5
+  e.style.animationDuration=dur+'s'
+  e.style.animationDelay=(Math.random()*.5)+'s'
+  dC.appendChild(e)
+  setTimeout(()=>e.remove(),dur*1000+600)
+}
+setInterval(spawnEmber,200)
+
+// re-trigger reveal anim for demo D
+const rows=document.querySelectorAll('.reveal-row')
+function retrigger(){rows.forEach(r=>{r.style.animation='none';requestAnimationFrame(()=>{r.style.animation=''})})}
+setInterval(retrigger,2500)
+</script>
+</body>
+</html>

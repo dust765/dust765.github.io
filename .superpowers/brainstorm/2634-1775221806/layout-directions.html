@@ -1,0 +1,100 @@
+<h2>Qual direção de layout você prefere?</h2>
+<p class="subtitle">Escolha a vibe visual para o novo dark layout do Dust765</p>
+
+<div class="cards">
+
+  <!-- Option A: Abyss / OLED -->
+  <div class="card" data-choice="abyss" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#000;padding:16px;font-family:monospace;border-radius:6px;min-height:180px;position:relative;overflow:hidden">
+      <!-- Simulated particles -->
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(180,0,0,0.3) 0%,transparent 70%)"></div>
+      <div style="position:relative;z-index:1">
+        <div style="color:#8c1515;font-size:10px;letter-spacing:3px;margin-bottom:8px">◆ ULTIMA ONLINE ENHANCED CLIENT</div>
+        <div style="color:#fff;font-size:22px;font-weight:900;font-family:serif;text-shadow:0 0 20px rgba(220,40,40,0.8)">DUST<span style="color:#dc2828">765</span></div>
+        <div style="color:#555;font-size:9px;margin-top:4px">FIGHT · SURVIVE · CONQUER</div>
+        <div style="margin-top:14px;display:flex;gap:6px">
+          <div style="background:#8c1515;color:#fff;font-size:8px;padding:4px 10px;border-radius:2px">DOWNLOAD</div>
+          <div style="border:1px solid #333;color:#555;font-size:8px;padding:4px 10px;border-radius:2px">GITHUB</div>
+        </div>
+        <!-- Últimas online strip -->
+        <div style="margin-top:14px;border-top:1px solid #1a0000;padding-top:8px">
+          <div style="color:#333;font-size:8px;letter-spacing:2px;margin-bottom:6px">ÚLTIMAS ONLINE</div>
+          <div style="display:flex;gap:4px">
+            <div style="width:28px;height:28px;background:#1a0000;border:1px solid #8c1515;border-radius:3px"></div>
+            <div style="width:28px;height:28px;background:#1a0000;border:1px solid #333;border-radius:3px;opacity:.5"></div>
+            <div style="width:28px;height:28px;background:#1a0000;border:1px solid #333;border-radius:3px;opacity:.3"></div>
+            <div style="width:28px;height:28px;background:#1a0000;border:1px solid #333;border-radius:3px;opacity:.2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Abyss / OLED Black</h3>
+      <p>Fundo #000000 puro, acento vermelho-sangue, glow nas bordas, partículas flutuantes. Máximo contraste. Animações: pulso de glow, fade-in por seção, contador ao vivo de jogadores online.</p>
+    </div>
+  </div>
+
+  <!-- Option B: Void/Neon -->
+  <div class="card" data-choice="void" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#05050f;padding:16px;font-family:monospace;border-radius:6px;min-height:180px;position:relative;overflow:hidden">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(80,0,180,0.15) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(180,0,0,0.2) 0%,transparent 50%)"></div>
+      <div style="position:relative;z-index:1">
+        <div style="color:#6030a0;font-size:10px;letter-spacing:3px;margin-bottom:8px">▸ ULTIMA ONLINE ENHANCED CLIENT</div>
+        <div style="color:#fff;font-size:22px;font-weight:900;font-family:serif;text-shadow:0 0 25px rgba(160,40,220,0.7)">DUST<span style="color:#a028dc">765</span></div>
+        <div style="color:#4a3060;font-size:9px;margin-top:4px">FIGHT · SURVIVE · CONQUER</div>
+        <div style="margin-top:14px;display:flex;gap:6px">
+          <div style="background:linear-gradient(135deg,#8c1515,#6030a0);color:#fff;font-size:8px;padding:4px 10px;border-radius:2px">DOWNLOAD</div>
+          <div style="border:1px solid #3a1a5a;color:#6030a0;font-size:8px;padding:4px 10px;border-radius:2px">GITHUB</div>
+        </div>
+        <!-- Últimas online strip -->
+        <div style="margin-top:14px;border-top:1px solid #1a0030;padding-top:8px">
+          <div style="color:#3a1a5a;font-size:8px;letter-spacing:2px;margin-bottom:6px">ÚLTIMAS ONLINE</div>
+          <div style="display:flex;gap:4px">
+            <div style="width:28px;height:28px;background:#100020;border:1px solid #a028dc;border-radius:3px;box-shadow:0 0 6px rgba(160,40,220,0.4)"></div>
+            <div style="width:28px;height:28px;background:#100020;border:1px solid #4a1a7a;border-radius:3px;opacity:.6"></div>
+            <div style="width:28px;height:28px;background:#100020;border:1px solid #2a0a4a;border-radius:3px;opacity:.4"></div>
+            <div style="width:28px;height:28px;background:#100020;border:1px solid #1a0030;border-radius:3px;opacity:.2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Void / Crimson+Púrpura</h3>
+      <p>Fundo quase-preto azulado, gradiente crimson→púrpura, glow neon roxo. Animações: scanlines piscando, texto glitch no título, cards com borda iluminada ao hover.</p>
+    </div>
+  </div>
+
+  <!-- Option C: Forge/Ember -->
+  <div class="card" data-choice="forge" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#080402;padding:16px;font-family:monospace;border-radius:6px;min-height:180px;position:relative;overflow:hidden">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(200,80,0,0.25) 0%,transparent 60%),radial-gradient(ellipse at 20% 80%,rgba(180,30,0,0.2) 0%,transparent 50%)"></div>
+      <!-- ember particles sim -->
+      <div style="position:absolute;bottom:0;left:30%;width:2px;height:40px;background:linear-gradient(to top,rgba(200,80,0,0.8),transparent);border-radius:2px;opacity:.6"></div>
+      <div style="position:absolute;bottom:0;left:60%;width:1px;height:25px;background:linear-gradient(to top,rgba(220,120,0,0.8),transparent);border-radius:2px;opacity:.5"></div>
+      <div style="position:relative;z-index:1">
+        <div style="color:#7a3000;font-size:10px;letter-spacing:3px;margin-bottom:8px">⚔ ULTIMA ONLINE ENHANCED CLIENT</div>
+        <div style="color:#f0a060;font-size:22px;font-weight:900;font-family:serif;text-shadow:0 0 20px rgba(200,80,0,0.9)">DUST<span style="color:#dc4010">765</span></div>
+        <div style="color:#5a2800;font-size:9px;margin-top:4px">FIGHT · SURVIVE · CONQUER</div>
+        <div style="margin-top:14px;display:flex;gap:6px">
+          <div style="background:#8c2000;color:#f0a060;font-size:8px;padding:4px 10px;border-radius:2px;border:1px solid #c04010">DOWNLOAD</div>
+          <div style="border:1px solid #3a1400;color:#7a3000;font-size:8px;padding:4px 10px;border-radius:2px">GITHUB</div>
+        </div>
+        <!-- Últimas online strip -->
+        <div style="margin-top:14px;border-top:1px solid #2a0a00;padding-top:8px">
+          <div style="color:#5a2800;font-size:8px;letter-spacing:2px;margin-bottom:6px">ÚLTIMAS ONLINE</div>
+          <div style="display:flex;gap:4px">
+            <div style="width:28px;height:28px;background:#120400;border:1px solid #c04010;border-radius:3px;box-shadow:0 0 8px rgba(200,80,0,0.5)"></div>
+            <div style="width:28px;height:28px;background:#120400;border:1px solid #5a2000;border-radius:3px;opacity:.6"></div>
+            <div style="width:28px;height:28px;background:#120400;border:1px solid #3a1000;border-radius:3px;opacity:.4"></div>
+            <div style="width:28px;height:28px;background:#120400;border:1px solid #1a0800;border-radius:3px;opacity:.2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Forge / Ember & Chamas</h3>
+      <p>Fundo carvão quase-preto, dourado-âmbar e laranja-brasa, partículas de ember subindo. Animações: chamas CSS no hero, cards com borda que "arde", efeito de forja nos títulos.</p>
+    </div>
+  </div>
+
+</div>
