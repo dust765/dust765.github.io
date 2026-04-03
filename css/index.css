@@ -24,6 +24,7 @@
       --border-strong: rgba(180, 40, 40, 0.42);
       --glow-red: rgba(212, 48, 48, 0.2);
       --lema-muted: rgba(26, 18, 18, 0.55);
+      --font-display: 'Caudex', 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif;
     }
 
     html { scroll-behavior: smooth; }
@@ -41,6 +42,7 @@
 
     body {
       font-family: 'Crimson Text', Georgia, serif;
+      font-weight: 500;
       background: var(--bg);
       color: var(--text);
       font-size: 18px;
@@ -181,8 +183,9 @@
     }
 
     .nav-links a:not(.nav-brand-circle) {
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: .72rem;
+      font-weight: 700;
       letter-spacing: .12em;
       color: var(--text-dim);
       text-transform: uppercase;
@@ -267,8 +270,9 @@
     .nav-social a:hover { color: var(--red-600); }
 
     .nav-cta {
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: .72rem;
+      font-weight: 700;
       letter-spacing: .1em;
       text-transform: uppercase;
       padding: .45rem 1.2rem;
@@ -353,8 +357,9 @@
       gap: 1.25rem;
     }
     .nav-drawer ul a {
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: .75rem;
+      font-weight: 700;
       letter-spacing: .12em;
       text-transform: uppercase;
       color: var(--text-dim);
@@ -416,8 +421,9 @@
     }
 
     .hero-showcase-eyebrow {
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: .68rem;
+      font-weight: 700;
       letter-spacing: .28em;
       text-transform: uppercase;
       color: var(--red-600);
@@ -446,9 +452,9 @@
     }
 
     .hero-slider-title {
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: clamp(1.2rem, 2.8vw, 1.65rem);
-      font-weight: 400;
+      font-weight: 700;
       color: var(--text);
       margin-bottom: 1rem;
       line-height: 1.2;
@@ -491,8 +497,9 @@
     }
 
     .hero-discord-text strong {
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: .78rem;
+      font-weight: 700;
       letter-spacing: .18em;
       text-transform: uppercase;
       color: var(--red-800);
@@ -507,8 +514,9 @@
     }
 
     .btn-discord {
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: .72rem;
+      font-weight: 700;
       letter-spacing: .14em;
       text-transform: uppercase;
       padding: .65rem 1.65rem;
@@ -551,8 +559,9 @@
 
     .hero-alt-cta {
       margin-top: 1.25rem;
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: .65rem;
+      font-weight: 700;
       letter-spacing: .16em;
       text-transform: uppercase;
     }
@@ -571,8 +580,9 @@
 
     .hero-badge {
       display: inline-block;
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: .65rem;
+      font-weight: 700;
       letter-spacing: .28em;
       text-transform: uppercase;
       color: var(--lema-muted);
@@ -584,8 +594,8 @@
     }
 
     .hero-title {
-      font-family: 'Cinzel', serif;
-      font-weight: 400;
+      font-family: var(--font-display);
+      font-weight: 700;
       color: var(--text);
       line-height: 1.05;
       margin-bottom: 1.5rem;
@@ -601,7 +611,7 @@
       letter-spacing: .2em;
       text-transform: uppercase;
       color: var(--lema-muted);
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .hero-lema {
@@ -614,6 +624,7 @@
     .hero-lema-line {
       display: block;
       font-size: clamp(2.1rem, 7vw, 4.25rem);
+      font-weight: 700;
       letter-spacing: .04em;
       line-height: 1.02;
       text-shadow: 0 0 36px var(--glow-red), 0 1px 0 rgba(255, 255, 255, 0.85);
@@ -625,7 +636,7 @@
 
     .hero-title em {
       font-style: normal;
-      font-weight: 400;
+      font-weight: 700;
     }
 
     .hero-sub {
@@ -665,8 +676,9 @@
     .btn-icon svg { display: block; }
 
     .btn-primary {
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: .8rem;
+      font-weight: 700;
       letter-spacing: .15em;
       text-transform: uppercase;
       padding: .85rem 2.5rem;
@@ -685,8 +697,9 @@
     }
 
     .btn-outline {
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: .8rem;
+      font-weight: 700;
       letter-spacing: .15em;
       text-transform: uppercase;
       padding: .85rem 2.5rem;
@@ -705,8 +718,9 @@
       left: 0;
       right: 0;
       z-index: 2;
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: .65rem;
+      font-weight: 700;
       letter-spacing: .2em;
       color: var(--red-400);
       text-transform: uppercase;
@@ -726,8 +740,9 @@
     }
 
     .section-label {
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: .65rem;
+      font-weight: 700;
       letter-spacing: .3em;
       text-transform: uppercase;
       color: var(--red-400);
@@ -735,9 +750,9 @@
     }
 
     .section-title {
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: clamp(1.4rem, 3vw, 2.2rem);
-      font-weight: 400;
+      font-weight: 700;
       color: var(--text);
       margin-bottom: 1.25rem;
       line-height: 1.2;
@@ -811,8 +826,9 @@
       background: var(--red-100);
     }
     .stat-card .num {
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: 2rem;
+      font-weight: 700;
       color: var(--red-300);
       display: block;
     }
@@ -861,9 +877,9 @@
     }
 
     .feat-title {
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: 1rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--text);
       margin-bottom: .5rem;
     }
@@ -893,8 +909,9 @@
     }
 
     .tab-btn {
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: .7rem;
+      font-weight: 700;
       letter-spacing: .12em;
       text-transform: uppercase;
       padding: .4rem 1rem;
@@ -927,8 +944,9 @@
     }
     .steps li::before {
       content: counter(step-counter, decimal-leading-zero);
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: .75rem;
+      font-weight: 700;
       color: var(--red-700);
       background: var(--red-100);
       border: 1px solid var(--border-strong);
@@ -1002,8 +1020,9 @@
       transition: opacity .55s ease, transform .55s ease;
     }
     .c-step-num {
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: .8rem;
+      font-weight: 700;
       color: var(--red-700);
       background: var(--red-100);
       border: 1px solid var(--border-strong);
@@ -1014,8 +1033,9 @@
       margin-top: .15rem;
     }
     .c-step-body strong {
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: .9rem;
+      font-weight: 700;
       color: var(--text);
       display: block;
       margin-bottom: .25rem;
@@ -1032,8 +1052,9 @@
       padding: 2rem;
     }
     .links-panel h3 {
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: .9rem;
+      font-weight: 700;
       color: var(--text);
       margin-bottom: 1.25rem;
       letter-spacing: .08em;
@@ -1129,9 +1150,9 @@
     }
 
     .light-features h3 {
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: .9rem;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: .08em;
       color: var(--text);
       margin: 0 0 .55rem;
@@ -1197,8 +1218,9 @@
       line-height: 1.65;
     }
     .dl-card .dl-name {
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: .85rem;
+      font-weight: 700;
       color: var(--text);
     }
     .dl-card .dl-sub {
@@ -1215,9 +1237,9 @@
       text-align: center;
     }
     .footer-wordmark {
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: 1.35rem;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--red-400);
@@ -1229,8 +1251,9 @@
       margin-bottom: 1.5rem;
     }
     .footer-links a {
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: .65rem;
+      font-weight: 700;
       letter-spacing: .15em;
       text-transform: uppercase;
       color: var(--text-dim);
@@ -1272,8 +1295,9 @@
       display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.5rem;
     }
     .badge {
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: .62rem;
+      font-weight: 700;
       letter-spacing: .12em;
       text-transform: uppercase;
       padding: .28rem .75rem;
@@ -1336,8 +1360,9 @@
       right: 0;
       background: linear-gradient(transparent, rgba(0,0,0,.72));
       padding: 1.5rem 1rem .75rem;
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: .75rem;
+      font-weight: 700;
       letter-spacing: .12em;
       text-transform: uppercase;
       color: rgba(255, 252, 250, 0.92);
@@ -1517,8 +1542,9 @@
     .video-label {
       position: relative;
       z-index: 1;
-      font-family: 'Cinzel', serif;
+      font-family: var(--font-display);
       font-size: .85rem;
+      font-weight: 700;
       letter-spacing: .15em;
       text-transform: uppercase;
       color: var(--text);

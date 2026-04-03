@@ -6,7 +6,7 @@
   <title>404 — Dust765</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Caudex:wght@400;700&family=Crimson+Text:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -25,6 +25,7 @@
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Crimson Text', Georgia, serif;
+      font-weight: 500;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
@@ -55,16 +56,17 @@
       filter: drop-shadow(0 0 20px rgba(180,30,30,.4));
     }
     .code {
-      font-family: 'Cinzel', serif;
+      font-family: 'Caudex', Georgia, serif;
+      font-weight: 700;
       font-size: clamp(4rem, 15vw, 6.5rem);
-      font-weight: 400;
       color: var(--red-300);
       line-height: 1;
       text-shadow: 0 0 40px rgba(180,30,30,.35);
       margin-bottom: .75rem;
     }
     h1 {
-      font-family: 'Cinzel', serif;
+      font-family: 'Caudex', Georgia, serif;
+      font-weight: 700;
       font-size: 1.15rem;
       letter-spacing: .12em;
       text-transform: uppercase;
@@ -84,7 +86,8 @@
       justify-content: center;
     }
     a {
-      font-family: 'Cinzel', serif;
+      font-family: 'Caudex', Georgia, serif;
+      font-weight: 700;
       font-size: .72rem;
       letter-spacing: .12em;
       text-transform: uppercase;
@@ -112,13 +115,13 @@
 </head>
 <body>
   <div class="wrap">
-    <a href="index.html"><img src="logodust.png" alt="Dust765" /></a>
+    <a href="/"><img src="/logodust.png" alt="Dust765" /></a>
     <div class="code">404</div>
     <h1>Page not found</h1>
     <p>This path does not exist or was moved. Return home or open the documentation wiki.</p>
     <div class="actions">
-      <a class="btn-primary" href="index.html">Back to home</a>
-      <a class="btn-outline" href="wiki.html">Wiki</a>
+      <a class="btn-primary" href="/">Back to home</a>
+      <a class="btn-outline" href="/wiki.html">Wiki</a>
     </div>
   </div>
 </body>

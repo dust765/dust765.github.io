@@ -6,12 +6,13 @@
   <title>Dust765 Wiki — Documentation</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/wiki.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Caudex:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Bump ?v= when css/wiki.css changes -->
+  <link rel="stylesheet" href="css/wiki.css?v=3" />
 </head>
 <body>
   <header class="wiki-top">
-    <a class="home" href="index.html">
+    <a class="home" href="/">
       <img src="logodust.png" alt="" />
       <span>Dust765</span>
     </a>
@@ -23,8 +24,13 @@
 
   <div class="wiki-layout">
     <aside class="wiki-sidebar">
+      <div class="wiki-search" role="search">
+        <label class="wiki-search-label" for="wiki-search">Search</label>
+        <input type="search" id="wiki-search" class="wiki-search-input" placeholder="Filter pages or content…" autocomplete="off" spellcheck="false" enterkeyhint="search" />
+        <p class="wiki-search-hint" id="wiki-search-hint" hidden></p>
+      </div>
       <h2>Pages</h2>
-      <nav>
+      <nav aria-label="Wiki pages">
         <ul id="wiki-nav">
           <li><a href="#wiki-home">Home</a></li>
           <li class="wiki-nav-label">ClassicUO options</li>
@@ -3475,8 +3481,98 @@
 
   <script>
     (function () {
+      var nav = document.getElementById("wiki-nav");
+      var searchInput = document.getElementById("wiki-search");
+      var searchHint = document.getElementById("wiki-search-hint");
       var links = document.querySelectorAll("#wiki-nav a");
       var panels = document.querySelectorAll("main details.wiki-article");
+      var navItems = nav ? Array.prototype.slice.call(nav.children) : [];
+
+      var contentById = {};
+      panels.forEach(function (d) {
+        var summary = d.querySelector("summary");
+        var body = d.querySelector(".wiki-article-body");
+        var title = summary ? summary.textContent : "";
+        var blob = (title + " " + (body ? body.textContent : "")).toLowerCase();
+        contentById[d.id] = blob;
+      });
+
+      function norm(s) {
+        return (s || "").toLowerCase();
+      }
+
+      function linkTargetId(href) {
+        if (!href || href === "#") return "wiki-home";
+        return href.charAt(0) === "#" ? href.slice(1) : href;
+      }
+
+      function applyWikiSearch() {
+        if (!nav || !searchInput) return;
+        var q = norm(searchInput.value.trim());
+        var visibleCount = 0;
+        navItems.forEach(function (li) {
+          li.classList.remove("wiki-nav-item-hidden");
+        });
+        if (!q) {
+          if (searchHint) {
+            searchHint.hidden = true;
+            searchHint.textContent = "";
+          }
+          return;
+        }
+        navItems.forEach(function (li) {
+          if (li.classList.contains("wiki-nav-label")) return;
+          var a = li.querySelector("a");
+          if (!a) return;
+          var href = a.getAttribute("href") || "#wiki-home";
+          var id = linkTargetId(href);
+          var label = norm(a.textContent);
+          var idNorm = norm(id);
+          var bodyBlob = contentById[id] || "";
+          var match =
+            label.indexOf(q) !== -1 ||
+            idNorm.indexOf(q) !== -1 ||
+            bodyBlob.indexOf(q) !== -1;
+          if (!match) {
+            li.classList.add("wiki-nav-item-hidden");
+          } else {
+            visibleCount += 1;
+          }
+        });
+        navItems.forEach(function (li) {
+          if (!li.classList.contains("wiki-nav-label")) return;
+          var idx = navItems.indexOf(li);
+          var hasVisible = false;
+          for (var j = idx + 1; j < navItems.length; j += 1) {
+            if (navItems[j].classList.contains("wiki-nav-label")) break;
+            if (!navItems[j].classList.contains("wiki-nav-item-hidden")) {
+              hasVisible = true;
+              break;
+            }
+          }
+          if (!hasVisible) {
+            li.classList.add("wiki-nav-item-hidden");
+          }
+        });
+        if (searchHint) {
+          searchHint.hidden = false;
+          searchHint.textContent =
+            visibleCount === 0
+              ? "No pages match. Try another word."
+              : visibleCount + " page" + (visibleCount === 1 ? "" : "s") + " match.";
+        }
+      }
+
+      if (searchInput) {
+        searchInput.addEventListener("input", applyWikiSearch);
+        searchInput.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") {
+            searchInput.value = "";
+            applyWikiSearch();
+            searchInput.blur();
+          }
+        });
+      }
 
       function setActive() {
         var hash = (location.hash || "#wiki-home").split("?")[0];

@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="canonical" href="https://dust765.com/" />
   <title>Dust765 – Ultima Online Client</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/index.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Caudex:ital,wght@0,400;0,700;1,400;1,700&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <!-- Bump ?v= when css/index.css changes -->
+  <link rel="stylesheet" href="css/index.css?v=3" />
 </head>
 <body>
 
@@ -372,7 +374,10 @@ dotnet build src/ClassicUO.Client/ClassicUO.Client.csproj -c Release</span>
       <p class="section-label reveal">PvP edition</p>
       <h2 class="section-title reveal">Dust765 Light</h2>
       <p class="section-body reveal">
-        Dust765 Light includes <strong>only</strong> the features listed below. All options are available under <strong>Options → Dust765</strong> in-game.
+        A lightweight fork of <a href="https://github.com/dust765/ClassicUO" target="_blank" rel="noopener">Dust765</a> focused exclusively on <strong>PvP gameplay</strong>. This version strips down the full Dust765 feature set to only what matters in combat, keeping the client lean and easy to maintain. Built on top of <a href="https://github.com/andreakarasho/ClassicUO" target="_blank" rel="noopener">ClassicUO</a> — the open source Ultima Online client.
+      </p>
+      <p class="section-body reveal mt-2">
+        All options are available under <strong>Options → Dust765</strong> in-game. The list below matches <a href="https://github.com/dust765/Dust765-Light" target="_blank" rel="noopener">dust765/Dust765-Light</a> on GitHub.
       </p>
 
       <div class="light-intro-banner reveal">
@@ -383,14 +388,14 @@ dotnet build src/ClassicUO.Client/ClassicUO.Client.csproj -c Release</span>
         <div class="light-feature-block">
           <h3>Movement</h3>
           <ul>
-            <li>Avoid obstacles automatically while walking</li>
+            <li><strong>Avoid obstacles automatically</strong> while walking</li>
           </ul>
         </div>
 
         <div class="light-feature-block">
           <h3>UO Classic Combat — Swing Timer</h3>
           <ul>
-            <li>Visual swing timer bar showing weapon cooldown progress</li>
+            <li>Visual <strong>swing timer bar</strong> showing weapon cooldown progress</li>
             <li>Toggle the bar on/off and lock its position on screen</li>
           </ul>
         </div>
@@ -398,57 +403,47 @@ dotnet build src/ClassicUO.Client/ClassicUO.Client.csproj -c Release</span>
         <div class="light-feature-block">
           <h3>HP / Mana / Stamina Bars</h3>
           <ul>
-            <li>HP/Mana/Stamina bars displayed below your own character nameplate (no Ctrl+Shift needed)</li>
-            <li>Adjustable nameplate bar opacity</li>
-            <li>Old-style underfoot HP lines for all mobiles</li>
-            <li>HP / Mana / Stamina underlines for self and party members</li>
-            <li>Option for larger underlines</li>
-            <li>Adjustable underline transparency (1–10 scale)</li>
+            <li><strong>HP/Mana/Stamina bars</strong> displayed below your own character nameplate (no Ctrl+Shift needed)</li>
+            <li>Adjustable <strong>nameplate bar opacity</strong></li>
+            <li><strong>Old-style underfoot HP lines</strong> for all mobiles</li>
+            <li><strong>HP / Mana / Stamina underlines</strong> for self and party members</li>
+            <li>Option for <strong>larger underlines</strong></li>
+            <li>Adjustable <strong>underline transparency</strong> (1–10 scale)</li>
           </ul>
         </div>
 
         <div class="light-feature-block">
           <h3>Bandage Timer</h3>
           <ul>
-            <li>On-screen bandage timer gump</li>
-            <li>Option to count up instead of down</li>
+            <li>On-screen <strong>bandage timer gump</strong></li>
+            <li>Option to count <strong>up</strong> instead of down</li>
           </ul>
         </div>
 
         <div class="light-feature-block">
           <h3>Casting Timer (OnCasting)</h3>
           <ul>
-            <li>On-screen casting timer gump</li>
+            <li>On-screen <strong>casting timer gump</strong></li>
             <li>Option to hide the gump (internal tracking only)</li>
-            <li>Position the timer below the player status bar</li>
+            <li>Position the timer <strong>below the player status bar</strong></li>
           </ul>
         </div>
 
         <div class="light-feature-block">
           <h3>Houses &amp; World Map</h3>
           <ul>
-            <li>Transparent houses — walls above a configurable Z level fade out (transparency 1–9)</li>
-            <li>Invisible houses — walls above a configurable Z level disappear entirely; mobiles and players inside remain visible</li>
-            <li>Configurable ground clearance to prevent floors from being affected</li>
-            <li>Show death location on the world map for 5 minutes after dying</li>
+            <li><strong>Transparent houses</strong> — walls above a configurable Z level fade out (transparency 1–9)</li>
+            <li><strong>Invisible houses</strong> — walls above a configurable Z level disappear entirely; mobiles and players inside remain visible</li>
+            <li>Configurable <strong>ground clearance</strong> to prevent floors from being affected</li>
+            <li><strong>Show death location</strong> on the world map for 5 minutes after dying</li>
           </ul>
         </div>
 
         <div class="light-feature-block">
           <h3>Grid Container</h3>
           <ul>
-            <li>Replace the standard container gump with a resizable item grid</li>
+            <li>Replace the standard container gump with a <strong>resizable item grid</strong></li>
             <li>Drag the corner to resize; border and resize handle always visible</li>
-          </ul>
-        </div>
-
-        <div class="light-feature-block">
-          <h3>Combat &amp; targeting</h3>
-          <ul>
-            <li>Block Wall of Stone</li>
-            <li>Block Energy Field</li>
-            <li>Highlight target range tile</li>
-            <li>Highlight stealth</li>
           </ul>
         </div>
       </div>

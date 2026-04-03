@@ -1,5 +1,6 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
+  --font-display: 'Caudex', 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif;
   --red-700: #8c1515;
   --red-600: #a81818;
   --red-500: #c41f1f;
@@ -18,7 +19,7 @@ html { scroll-behavior: smooth; }
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.65;
   letter-spacing: .01em;
   background: var(--bg);
@@ -45,9 +46,9 @@ a:hover { color: var(--red-500); }
   display: flex;
   align-items: center;
   gap: .65rem;
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-display);
   font-size: .8125rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: .1em;
   color: var(--text);
 }
@@ -84,10 +85,57 @@ a:hover { color: var(--red-500); }
   background: var(--bg-elevated);
   border-right: 1px solid var(--line);
 }
-.wiki-sidebar h2 {
+.wiki-search {
+  margin-bottom: 1.35rem;
+}
+.wiki-search-label {
+  display: block;
   font-family: 'Inter', sans-serif;
   font-size: .6875rem;
   font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 0.45rem;
+}
+.wiki-search-input {
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  font-size: .875rem;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  transition: border-color .2s, box-shadow .2s;
+}
+.wiki-search-input::placeholder {
+  color: var(--text-faint);
+}
+.wiki-search-input:hover {
+  border-color: var(--line-accent);
+}
+.wiki-search-input:focus {
+  outline: none;
+  border-color: var(--red-500);
+  box-shadow: 0 0 0 3px rgba(180, 40, 40, 0.12);
+}
+.wiki-search-hint {
+  font-size: .75rem;
+  color: var(--text-faint);
+  margin-top: 0.4rem;
+  line-height: 1.4;
+}
+.wiki-search-hint:not([hidden]) {
+  display: block;
+}
+.wiki-nav-item-hidden {
+  display: none !important;
+}
+.wiki-sidebar h2 {
+  font-family: var(--font-display);
+  font-size: .6875rem;
+  font-weight: 700;
   letter-spacing: .14em;
   text-transform: uppercase;
   color: var(--text-faint);
@@ -127,9 +175,9 @@ a:hover { color: var(--red-500); }
   border: 1px solid var(--line);
 }
 .wiki-context h1 {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-display);
   font-size: 1.125rem;
-  font-weight: 400;
+  font-weight: 700;
   letter-spacing: .04em;
   color: var(--text);
   margin-bottom: .65rem;
@@ -178,9 +226,9 @@ a:hover { color: var(--red-500); }
   justify-content: space-between;
   gap: .75rem;
   padding: .7rem 1rem;
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-display);
   font-size: 1.0625rem;
-  font-weight: 400;
+  font-weight: 700;
   letter-spacing: .03em;
   color: var(--text);
   user-select: none;
@@ -209,9 +257,9 @@ a:hover { color: var(--red-500); }
   border-top: 1px solid var(--line);
 }
 .wiki-article h3 {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-display);
   font-size: .8125rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: .06em;
   text-transform: uppercase;
   color: var(--red-600);
